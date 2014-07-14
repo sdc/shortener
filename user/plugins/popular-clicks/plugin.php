@@ -15,21 +15,16 @@ function popularclicks_add_page() {
 }
 // Display popular clicks
 function popularclicks_do_page() {
-    $nonce = yourls_create_nonce('popular_clickks');
+    $nonce = yourls_create_nonce('popular_clicks');
     echo '<h2>Popular Clicks</h2>';
+    echo '<p>Legend: Clicks | Short URL | Long URL</p>';
 
-    function show_top($numdays,$numrows) {
+    function show_top($numdays, $numrows) {
         global $ydb;
-        $base  = YOURLS_SITE;
-        $table_url = YOURLS_DB_TABLE_URL;
-        $table_log = YOURLS_DB_TABLE_LOG;
-        $outdata   = '';
-
-        /*
-            SELECT a.shorturl AS shorturl, count(*) AS clicks, b.url AS longurl
-              FROM yourls_log a, yourls_url b WHERE a.shorturl=b.keyword AND DATE_SUB(NOW(),
-              INTERVAL 30 DAY)<a.click_time GROUP BY a.shorturl ORDER BY count(*) DESC LIMIT 20;
-         */
+        $base       = YOURLS_SITE;
+        $table_url  = YOURLS_DB_TABLE_URL;
+        $table_log  = YOURLS_DB_TABLE_LOG;
+        $outdata    = '';
 
         $query = $ydb->get_results("
             SELECT a.shorturl AS shorturl, COUNT(*) AS clicks, b.url AS longurl 
@@ -37,7 +32,7 @@ function popularclicks_do_page() {
             WHERE a.shorturl = b.keyword 
                 AND DATE_SUB(NOW(), INTERVAL $numdays DAY) < a.click_time 
             GROUP BY a.shorturl 
-            ORDER BY count(*) DESC, shorturl ASC
+            ORDER BY COUNT(*) DESC, shorturl ASC
             LIMIT $numrows;");
     
         if ($query) {
@@ -49,20 +44,20 @@ function popularclicks_do_page() {
             }
             $outdata .= '</ol>';
         }
-        echo '<h3>Popular Clicks in the last '.$numdays.' days:</h3>';
-        echo '<p>(Clicks | Short URL | Long URL)</p>';
+        $plural = ($numdays == 1) ? '' : 's';
+        echo '<h3>Popular clicks in the last '.$numdays.' day'.$plural.':</h3>';
         echo $outdata;
     }
 
     // Update next lines for adjustments on number of days and number of top links.
-    // Example: show_top(1,5) => print the 5 most popular links clicked in the last 1 day.
-    show_top(1,15);     // last day
-    show_top(7,15);     // last week
-    show_top(14,15);    // last 2 weeks
-    show_top(30,15);    // last month
-    show_top(60,15);    // last 2 months
-    show_top(90,15);    // last 3 months
-    show_top(180,15);   // last 6 months
-    show_top(365,15);   // last year
-    show_top(1000,15);  // All time.
+    // Example: show_top(1, 5) => print the 5 most popular links clicked in the last 1 day.
+    show_top(1, 15);    // last day
+    show_top(7, 15);    // last week
+    show_top(14, 15);   // last 2 weeks
+    show_top(30, 15);   // last month
+    show_top(60, 15);   // last 2 months
+    show_top(90, 15);   // last 3 months
+    show_top(180, 15);  // last 6 months
+    show_top(365, 15);  // last year
+    show_top(1000, 15); // All time.
 }
