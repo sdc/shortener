@@ -144,8 +144,9 @@ function yourls_html_footer() {
 	</div> <?php // wrap ?>
 	<div id="footer"><p>
 		<?php
-		$footer  = yourls_s( 'Powered by %s', '<a href="http://yourls.org/" title="YOURLS">YOURLS</a> v ' . YOURLS_VERSION );
-		$footer .= ' &ndash; '.$num_queries;
+		$footer  = yourls_s( 'Run by %s', '<a href="http://southdevon.ac.uk/" title="South Devon College">South Devon College</a>, ');
+		$footer .= yourls_s( 'powered by %s', '<a href="http://yourls.org/" title="YOURLS">YOURLS</a> v ' . YOURLS_VERSION );
+		//$footer .= ' &ndash; '.$num_queries;
 		echo yourls_apply_filters( 'html_footer_text', $footer );
 		?>
 	</p></div>
