@@ -5,7 +5,7 @@
 # Configuration
 user/*
 !user/config-sample.php
-#.htaccess
+.htaccess
 *.config
 *.conf
 [Rr]obots.txt
