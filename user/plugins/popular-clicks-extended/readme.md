@@ -43,6 +43,7 @@ I'm always keen to add new features, improve performance and squash bugs, so if 
 * What actually happened
 * Steps to reproduce
 
+<<<<<<< HEAD
 ## History
 
 * 2014-07-16, v0.1:     First version I'd consider fit for release.
@@ -50,3 +51,6 @@ I'm always keen to add new features, improve performance and squash bugs, so if 
 ## Finally...
 
 I hope you find this plugin useful.
+=======
+I hope you find this plugin useful.
+>>>>>>> c8309cd9f4fca9d7dd42bab7c5ddcdd712b66db9
